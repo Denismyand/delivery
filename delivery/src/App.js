@@ -17,9 +17,10 @@ export default function App() {
 
 function Footer() {
   return (
-    <>
-      <Link to="/">Shop</Link>
-      <Link to="cart">Cart</Link>
-    </>
+    <div className="Footer">
+        <Link className="ShopLink" to="/">Shop</Link>
+      <div className="VerticalLine"></div>
+        <Link className="CartLink" to="cart">Cart</Link>
+    </div>
   );
 }
