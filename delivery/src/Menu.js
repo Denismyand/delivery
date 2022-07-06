@@ -32,6 +32,7 @@ export const dishes = [
     restaurant: "McDonny",
     product: "Cheeseburger",
     image: cheeseburger,
+    cost: 123,
   },
   {
     id: 3,
@@ -102,8 +103,20 @@ export const dishes = [
     image: royal,
     cost: 123,
   },
-  { id: 18, restaurant: "Sonimod Pizza", product: "Toscana", image: toscana },
-  { id: 19, restaurant: "Sonimod Pizza", product: "5 Cheese", image: cheese },
+  {
+    id: 18,
+    restaurant: "Sonimod Pizza",
+    product: "Toscana",
+    image: toscana,
+    cost: 123,
+  },
+  {
+    id: 19,
+    restaurant: "Sonimod Pizza",
+    product: "5 Cheese",
+    image: cheese,
+    cost: 123,
+  },
   {
     id: 20,
     restaurant: "Sonimod Pizza",

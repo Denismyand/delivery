@@ -1,56 +1,92 @@
 import { dishes } from "./Menu.js";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Shop() {
-  let mcMenu = dishes.filter((dish) => dish.restaurant === "McDonny");
-  let cfkMenu = dishes.filter((dish) => dish.restaurant === "CFK");
-  let johnsMenu = dishes.filter((dish) => dish.restaurant === "Uncle John's");
-  let sonimodMenu = dishes.filter(
-    (dish) => dish.restaurant === "Sonimod Pizza"
-  );
-
-  const [menu, setMenu] = useState(mcMenu);
-  function chooseMenu(brand) {
-    setMenu(brand);
+  localStorage.clear();
+  let cached = JSON.parse(localStorage.getItem("menu"));
+  const [menu, setMenu] = useState(firstRender());
+  function firstRender() {
+    if (cached) {
+      return cached;
+    } else return dishes;
   }
+
+  let mcMenu = menu.filter((dish) => dish.restaurant === "McDonny");
+  let cfkMenu = menu.filter((dish) => dish.restaurant === "CFK");
+  let johnsMenu = menu.filter((dish) => dish.restaurant === "Uncle John's");
+  let sonimodMenu = menu.filter((dish) => dish.restaurant === "Sonimod Pizza");
+
+  const [restaurant, setRestaurant] = useState(mcMenu);
+
+  function chooseRestaurant(brand) {
+    setRestaurant(brand);
+  }
+
+  function handleAddToCart(dish) {
+    let cartAdded = menu.map((menuItem) => {
+      if (menuItem.id === dish.id) {
+        if (dish.cartQuantity) {
+          {
+            return { ...menuItem, cartQuantity: dish.cartQuantity + 1 };
+          }
+        } else {
+          return { ...menuItem, cartQuantity: 1 };
+        }
+      } else return menuItem;
+    });
+    setMenu(cartAdded);
+  }
+
+  useEffect(() => {
+    localStorage.setItem("menu", JSON.stringify(menu));
+  }, [menu]);
 
   return (
     <div className="ShopContent">
       <Restaurants
-        chooseMenu={chooseMenu}
+        chooseRestaurant={chooseRestaurant}
         mcMenu={mcMenu}
         cfkMenu={cfkMenu}
         johnsMenu={johnsMenu}
         sonimodMenu={sonimodMenu}
       />
-      <Menu menu={menu} />
+      <Menu restaurant={restaurant} handleAddToCart={handleAddToCart} />
     </div>
   );
 }
 
-function Restaurants({ chooseMenu, mcMenu, cfkMenu, johnsMenu, sonimodMenu }) {
+function Restaurants({
+  chooseRestaurant,
+  mcMenu,
+  cfkMenu,
+  johnsMenu,
+  sonimodMenu,
+}) {
   return (
     <div className="RestaurantList">
       <h1>Shops:</h1>
       <div className="RestaurantButtonBar">
-        <button className="RestaurantButton" onClick={() => chooseMenu(mcMenu)}>
+        <button
+          className="RestaurantButton"
+          onClick={() => chooseRestaurant(mcMenu)}
+        >
           McDonny
         </button>
         <button
           className="RestaurantButton"
-          onClick={() => chooseMenu(cfkMenu)}
+          onClick={() => chooseRestaurant(cfkMenu)}
         >
           CFK
         </button>
         <button
           className="RestaurantButton"
-          onClick={() => chooseMenu(johnsMenu)}
+          onClick={() => chooseRestaurant(johnsMenu)}
         >
           Uncle John's
         </button>
         <button
           className="RestaurantButton"
-          onClick={() => chooseMenu(sonimodMenu)}
+          onClick={() => chooseRestaurant(sonimodMenu)}
         >
           Sonimod Pizza
         </button>
@@ -59,11 +95,11 @@ function Restaurants({ chooseMenu, mcMenu, cfkMenu, johnsMenu, sonimodMenu }) {
   );
 }
 
-function Menu({ menu }) {
+function Menu({ restaurant, handleAddToCart }) {
   return (
     <>
       <div className="MenuContent">
-        {menu.map((dish) => (
+        {restaurant.map((dish) => (
           <div className="Dish" key={dish.id}>
             <img
               src={dish.image}
@@ -73,7 +109,12 @@ function Menu({ menu }) {
             />
             <div>
               <p className="DishName">{dish.product}</p>
-              <button className="AddToCart">Add to cart</button>
+              <button
+                className="AddToCart"
+                onClick={() => handleAddToCart(dish)}
+              >
+                Add to cart
+              </button>
             </div>
           </div>
         ))}
