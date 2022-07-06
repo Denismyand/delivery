@@ -20,6 +20,14 @@ button:hover {
 button:active {
   background-color: grey;
 }
+input {
+  margin-top: 10px;
+  height: 50px;
+  width: 80%;
+  border-radius: 10px;
+  border: 1px solid #9d9c9c;
+  padding-left: 10px;
+}
 
 .Footer {
   width: 100%;
@@ -49,7 +57,6 @@ button:active {
 .ShopContent {
   display: flex;
   height: 650px;
-
   margin-top: 20px;
   gap: 5%;
   padding-left: 5%;
@@ -79,7 +86,6 @@ button:active {
   flex-wrap: wrap;
   gap: 10%;
   padding: 3% 5% 3% 5%;
-
   overflow: auto;
   width: 75%;
   border: 3px solid #9d9c9c;
@@ -104,4 +110,36 @@ button:active {
   font-size: 20px;
   border: 1px solid black;
   border-radius: 5px;
+}
+.CartContent {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  gap: 5%;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+.PersonalInfo {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 30px 0 70px 30px;
+  width: 45%;
+  height: 550px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+.Cart {
+  width: 50%;
+  border: 1px solid black;
+  border-radius: 5px;
+  overflow: auto;
+}
+.CartTotal {
+  width: 85%;
+  text-align: right;
+}
+.CartSubmit {
+  width: 10%;
 }
