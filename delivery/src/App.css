@@ -1,12 +1,26 @@
 * {
   margin: 0;
+  box-sizing: border-box;
+  padding: 0;
+}
+body {
+  background-color: lightgrey;
 }
 h1 {
   font-size: 25px;
-  text-align: center;
 }
-a {
+
+img {
+  border: 1px solid black;
 }
+
+button:hover {
+  background-color: lightgrey;
+}
+button:active {
+  background-color: grey;
+}
+
 .Footer {
   width: 100%;
   display: flex;
@@ -14,21 +28,19 @@ a {
 }
 .ShopLink {
   text-align: center;
-  width: 5%;
+  width: 10%;
   padding: 15px 40px 15px 40px;
-
   font-size: 20px;
   color: #000;
   text-decoration: none;
 }
 .VerticalLine {
   margin-top: 7px;
-  margin-bottom: 7px;
   border-left: 3px solid black;
 }
 .CartLink {
   text-align: center;
-  width: 5%;
+  width: 10%;
   padding: 15px 40px 15px 40px;
   font-size: 20px;
   color: #000;
@@ -36,12 +48,15 @@ a {
 }
 .ShopContent {
   display: flex;
-  margin-top: 30px;
+  height: 650px;
 
-  margin-left: 5%;
-  margin-right: 5%;
+  margin-top: 20px;
+  gap: 5%;
+  padding-left: 5%;
+  padding-right: 5%;
 }
 .RestaurantList {
+  text-align: center;
   padding-top: 30px;
   padding-bottom: 30px;
   width: 20%;
@@ -50,23 +65,43 @@ a {
   border: 3px solid #9d9c9c;
   border-radius: 5px;
 }
+
 .RestaurantButton {
   width: 60%;
   height: 50px;
   font-size: 20px;
-  margin: auto;
   margin-top: 30px;
   border: 2px solid #9d9c9c;
-
   border-radius: 5px;
-
 }
 .MenuContent {
   display: flex;
-  width: 60%;
-  height: 500px;
-  margin-left: 10%;
+  flex-wrap: wrap;
+  gap: 10%;
+  padding: 3% 5% 3% 5%;
+
+  overflow: auto;
+  width: 75%;
   border: 3px solid #9d9c9c;
   border-radius: 5px;
-
+}
+.Dish {
+  position: relative;
+  width: 45%;
+  border: 1px solid black;
+}
+.DishName {
+  width: 100%;
+  font-size: 20px;
+  padding-left: 5%;
+}
+.AddToCart {
+  position: absolute;
+  bottom: 2%;
+  right: 2%;
+  width: 50%;
+  height: 10%;
+  font-size: 20px;
+  border: 1px solid black;
+  border-radius: 5px;
 }
