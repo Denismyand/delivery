@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Shop({ menu, handleAddToCart }) {
+export default function Shop({ menu, cart, handleAddToCart }) {
   let mcMenu = menu.filter((dish) => dish.restaurant === "McDonny");
   let cfkMenu = menu.filter((dish) => dish.restaurant === "CFK");
   let johnsMenu = menu.filter((dish) => dish.restaurant === "Uncle John's");
@@ -12,8 +12,6 @@ export default function Shop({ menu, handleAddToCart }) {
     setRestaurant(brand);
   }
 
- 
-
   return (
     <div className="ShopContent">
       <Restaurants
@@ -22,6 +20,7 @@ export default function Shop({ menu, handleAddToCart }) {
         cfkMenu={cfkMenu}
         johnsMenu={johnsMenu}
         sonimodMenu={sonimodMenu}
+        cart={cart}
       />
       <Menu restaurant={restaurant} handleAddToCart={handleAddToCart} />
     </div>
@@ -34,30 +33,35 @@ function Restaurants({
   cfkMenu,
   johnsMenu,
   sonimodMenu,
+  cart,
 }) {
   return (
     <div className="RestaurantList">
       <h1>Shops:</h1>
       <div className="RestaurantButtonBar">
         <button
+          disabled={cart.length > 0}
           className="RestaurantButton"
           onClick={() => chooseRestaurant(mcMenu)}
         >
           McDonny
         </button>
         <button
+          disabled={cart.length > 0}
           className="RestaurantButton"
           onClick={() => chooseRestaurant(cfkMenu)}
         >
           CFK
         </button>
         <button
+          disabled={cart.length > 0}
           className="RestaurantButton"
           onClick={() => chooseRestaurant(johnsMenu)}
         >
           Uncle John's
         </button>
         <button
+          disabled={cart.length > 0}
           className="RestaurantButton"
           onClick={() => chooseRestaurant(sonimodMenu)}
         >

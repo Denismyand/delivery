@@ -1,12 +1,37 @@
 import { dishes } from "./Menu.js";
+import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+
+const orders = [];
 
 export default function Cart({
   cart,
   setCart,
   handleAddToCart,
   handleDecreaseQuantity,
+  createNotification,
 }) {
+  const [custName, setCustName] = useState("");
+  const [custEmail, setCustEmail] = useState("");
+  const [custPhone, setCustPhone] = useState("");
+  const [custAddress, setCustAddress] = useState("");
+
   let total = 0;
+
+  function getOrder() {
+    orders.push({
+      id: uuidv4(),
+      customer_name: custName,
+      customer_email: custEmail,
+      customer_phone: custPhone,
+      customer_address: custAddress,
+      ordered_items: cart,
+    });
+    setCustName("");
+    setCustEmail("");
+    setCustPhone("");
+    setCustAddress("");
+  }
 
   function cartTotal() {
     if (cart) {
@@ -31,10 +56,26 @@ export default function Cart({
   return (
     <div className="CartContent">
       <div className="PersonalInfo">
-        <Input toinput="name" />
-        <Input toinput="email" />
-        <Input toinput="phone" />
-        <Input toinput="address" />
+        <Input
+          toinput="name"
+          value={custName}
+          onChange={(e) => setCustName(e.target.value)}
+        />
+        <Input
+          toinput="email"
+          value={custEmail}
+          onChange={(e) => setCustEmail(e.target.value)}
+        />
+        <Input
+          toinput="phone"
+          value={custPhone}
+          onChange={(e) => setCustPhone(e.target.value)}
+        />
+        <Input
+          toinput="address"
+          value={custAddress}
+          onChange={(e) => setCustAddress(e.target.value)}
+        />
       </div>
       <div className="Cart">
         <CartItems
@@ -50,24 +91,31 @@ export default function Cart({
       <button
         className="CartSubmit"
         onClick={() => {
+          getOrder();
           localStorage.clear();
           setCart(dishes.filter((item) => item.cartQuantity));
+          createNotification("ordered");
         }}
       >
-        Submit
+        <b>Submit</b>
       </button>
     </div>
   );
 }
 
-function Input({ toinput }) {
+function Input({ toinput, value, onChange }) {
   function Capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
   return (
     <div>
-      <p>{Capitalize(toinput) + ":"}</p>
-      <input className="InfoField" placeholder={`Enter your ${toinput}`} />
+      <p className="InfoFieldName">{Capitalize(toinput) + ":"}</p>
+      <input
+        className="InfoField"
+        placeholder={`Enter your ${toinput}`}
+        value={value}
+        onChange={onChange}
+      />
     </div>
   );
 }
@@ -121,6 +169,6 @@ function CartItems({
       );
     })
   ) : (
-    <h1>Your cart is empty</h1>
+    <h1 className="EmptyCart">Your cart is empty</h1>
   );
 }
