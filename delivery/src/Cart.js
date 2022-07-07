@@ -1,6 +1,11 @@
 import { dishes } from "./Menu.js";
 
-export default function Cart({ cart, setCart }) {
+export default function Cart({
+  cart,
+  setCart,
+  handleAddToCart,
+  handleDecreaseQuantity,
+}) {
   let total = 0;
 
   function cartTotal() {
@@ -14,6 +19,15 @@ export default function Cart({ cart, setCart }) {
     } else return "0";
   }
 
+  function handleChangeQuantity(dish, e) {
+    let changed = cart.map((cartItem) => {
+      if (cartItem.id === dish.id) {
+        return { ...cartItem, cartQuantity: e.target.value };
+      } else return cartItem;
+    });
+    setCart(changed);
+  }
+
   return (
     <div className="CartContent">
       <div className="PersonalInfo">
@@ -23,7 +37,12 @@ export default function Cart({ cart, setCart }) {
         <Input toinput="address" />
       </div>
       <div className="Cart">
-        <CartItems cart={cart} />
+        <CartItems
+          cart={cart}
+          handleChangeQuantity={handleChangeQuantity}
+          handleAddToCart={handleAddToCart}
+          handleDecreaseQuantity={handleDecreaseQuantity}
+        />
       </div>
       <div className="CartTotal">
         <p>Total price: {cartTotal()}</p>
@@ -53,7 +72,12 @@ function Input({ toinput }) {
   );
 }
 
-function CartItems({ cart }) {
+function CartItems({
+  cart,
+  handleChangeQuantity,
+  handleAddToCart,
+  handleDecreaseQuantity,
+}) {
   return cart.length > 0 ? (
     cart.map((dish) => {
       return (
@@ -73,11 +97,23 @@ function CartItems({ cart }) {
             <div className="CartItemQuantity">
               <input
                 className="CartQuantityInput"
+                type="number"
                 value={dish.cartQuantity}
+                onChange={(e) => handleChangeQuantity(dish, e)}
               ></input>
               <div className="CartQuantityButtons">
-                <button className="ArrowButtonTop">▲</button>
-                <button className="ArrowButtonBottom">▼</button>
+                <button
+                  className="ArrowButtonTop"
+                  onClick={() => handleAddToCart(dish)}
+                >
+                  ▲
+                </button>
+                <button
+                  className="ArrowButtonBottom"
+                  onClick={() => handleDecreaseQuantity(dish)}
+                >
+                  ▼
+                </button>
               </div>
             </div>
           </div>

@@ -21,6 +21,9 @@ button:active {
   background-color: grey;
 }
 
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
 .Footer {
   width: 100%;
   display: flex;

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Shop({ menu, cart, setCart }) {
+export default function Shop({ menu, handleAddToCart }) {
   let mcMenu = menu.filter((dish) => dish.restaurant === "McDonny");
   let cfkMenu = menu.filter((dish) => dish.restaurant === "CFK");
   let johnsMenu = menu.filter((dish) => dish.restaurant === "Uncle John's");
@@ -12,19 +12,7 @@ export default function Shop({ menu, cart, setCart }) {
     setRestaurant(brand);
   }
 
-  function handleAddToCart(dish) {
-    let foundInCart = cart.find((cartItem) => cartItem.id === dish.id);
-    if (foundInCart) {
-      let nextCart = cart.map((food) => {
-        if (food.id === foundInCart.id) {
-          return { ...foundInCart, cartQuantity: foundInCart.cartQuantity + 1 };
-        } else return food;
-      });
-      setCart(nextCart);
-    } else {
-      setCart([...cart, { ...dish, cartQuantity: 1 }]);
-    }
-  }
+ 
 
   return (
     <div className="ShopContent">
