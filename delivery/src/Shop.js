@@ -1,16 +1,6 @@
-import { dishes } from "./Menu.js";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-export default function Shop() {
-  localStorage.clear();
-  let cached = JSON.parse(localStorage.getItem("menu"));
-  const [menu, setMenu] = useState(firstRender());
-  function firstRender() {
-    if (cached) {
-      return cached;
-    } else return dishes;
-  }
-
+export default function Shop({ menu, cart, setCart }) {
   let mcMenu = menu.filter((dish) => dish.restaurant === "McDonny");
   let cfkMenu = menu.filter((dish) => dish.restaurant === "CFK");
   let johnsMenu = menu.filter((dish) => dish.restaurant === "Uncle John's");
@@ -23,23 +13,18 @@ export default function Shop() {
   }
 
   function handleAddToCart(dish) {
-    let cartAdded = menu.map((menuItem) => {
-      if (menuItem.id === dish.id) {
-        if (dish.cartQuantity) {
-          {
-            return { ...menuItem, cartQuantity: dish.cartQuantity + 1 };
-          }
-        } else {
-          return { ...menuItem, cartQuantity: 1 };
-        }
-      } else return menuItem;
-    });
-    setMenu(cartAdded);
+    let foundInCart = cart.find((cartItem) => cartItem.id === dish.id);
+    if (foundInCart) {
+      let nextCart = cart.map((food) => {
+        if (food.id === foundInCart.id) {
+          return { ...foundInCart, cartQuantity: foundInCart.cartQuantity + 1 };
+        } else return food;
+      });
+      setCart(nextCart);
+    } else {
+      setCart([...cart, { ...dish, cartQuantity: 1 }]);
+    }
   }
-
-  useEffect(() => {
-    localStorage.setItem("menu", JSON.stringify(menu));
-  }, [menu]);
 
   return (
     <div className="ShopContent">
@@ -105,7 +90,7 @@ function Menu({ restaurant, handleAddToCart }) {
               src={dish.image}
               alt={dish.product}
               width="100%"
-              height="83%"
+              height="350px"
             />
             <div>
               <p className="DishName">{dish.product}</p>

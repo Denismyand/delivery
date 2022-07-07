@@ -26,6 +26,7 @@ export const dishes = [
     product: "Small tasty",
     image: tasty,
     cost: 123,
+    cartQuantity: 0,
   },
   {
     id: 2,
@@ -33,6 +34,7 @@ export const dishes = [
     product: "Cheeseburger",
     image: cheeseburger,
     cost: 123,
+    cartQuantity: 0,
   },
   {
     id: 3,
@@ -40,19 +42,63 @@ export const dishes = [
     product: "SadMeal",
     image: sadmeal,
     cost: 123,
+    cartQuantity: 0,
   },
-  { id: 4, restaurant: "McDonny", product: "McFurry", image: furry, cost: 123 },
-  { id: 5, restaurant: "McDonny", product: "McMafia", image: mafia, cost: 123 },
-  { id: 6, restaurant: "CFK", product: "Wings", image: wings, cost: 123 },
-  { id: 7, restaurant: "CFK", product: "Strips", image: strips, cost: 123 },
-  { id: 8, restaurant: "CFK", product: "Bucket", image: bucket, cost: 123 },
-  { id: 9, restaurant: "CFK", product: "Legs", image: legs, cost: 123 },
+  {
+    id: 4,
+    restaurant: "McDonny",
+    product: "McFurry",
+    image: furry,
+    cost: 123,
+    cartQuantity: 0,
+  },
+  {
+    id: 5,
+    restaurant: "McDonny",
+    product: "McMafia",
+    image: mafia,
+    cost: 123,
+    cartQuantity: 0,
+  },
+  {
+    id: 6,
+    restaurant: "CFK",
+    product: "Wings",
+    image: wings,
+    cost: 123,
+    cartQuantity: 0,
+  },
+  {
+    id: 7,
+    restaurant: "CFK",
+    product: "Strips",
+    image: strips,
+    cost: 123,
+    cartQuantity: 0,
+  },
+  {
+    id: 8,
+    restaurant: "CFK",
+    product: "Bucket",
+    image: bucket,
+    cost: 123,
+    cartQuantity: 0,
+  },
+  {
+    id: 9,
+    restaurant: "CFK",
+    product: "Legs",
+    image: legs,
+    cost: 123,
+    cartQuantity: 0,
+  },
   {
     id: 10,
     restaurant: "CFK",
     product: "Chickenburger",
     image: chicken,
     cost: 123,
+    cartQuantity: 0,
   },
   {
     id: 11,
@@ -60,6 +106,7 @@ export const dishes = [
     product: "Mozarella Sticks",
     image: sticks,
     cost: 123,
+    cartQuantity: 0,
   },
   {
     id: 12,
@@ -67,6 +114,7 @@ export const dishes = [
     product: "Uncledias",
     image: dias,
     cost: 123,
+    cartQuantity: 0,
   },
   {
     id: 13,
@@ -74,6 +122,7 @@ export const dishes = [
     product: "Honey Mustard",
     image: mustard,
     cost: 123,
+    cartQuantity: 0,
   },
   {
     id: 14,
@@ -81,6 +130,7 @@ export const dishes = [
     product: "BBQ Chicken Pizza",
     image: bbq,
     cost: 123,
+    cartQuantity: 0,
   },
   {
     id: 15,
@@ -88,6 +138,7 @@ export const dishes = [
     product: "Margherita pizza",
     image: margherita,
     cost: 123,
+    cartQuantity: 0,
   },
   {
     id: 16,
@@ -95,6 +146,7 @@ export const dishes = [
     product: "Carbonara",
     image: carbonara,
     cost: 123,
+    cartQuantity: 0,
   },
   {
     id: 17,
@@ -102,6 +154,7 @@ export const dishes = [
     product: "Royal Cheeseburger",
     image: royal,
     cost: 123,
+    cartQuantity: 0,
   },
   {
     id: 18,
@@ -109,6 +162,7 @@ export const dishes = [
     product: "Toscana",
     image: toscana,
     cost: 123,
+    cartQuantity: 0,
   },
   {
     id: 19,
@@ -116,6 +170,7 @@ export const dishes = [
     product: "5 Cheese",
     image: cheese,
     cost: 123,
+    cartQuantity: 0,
   },
   {
     id: 20,
@@ -123,5 +178,6 @@ export const dishes = [
     product: "Munich DeLUX",
     image: munich,
     cost: 123,
+    cartQuantity: 0,
   },
 ];
