@@ -44,17 +44,15 @@ export default function Map() {
     });
   };
 
-  // const mapRef = useRef();
-  // const onMapLoad = useCallback((map) => {
-  //   mapRef.current = map;
-  // }, []);
+  const mapRef = useRef();
+  const onMapLoad = useCallback((map) => {
+    mapRef.current = map;
+  }, []);
 
   const [selected, setSelected] = useState(null);
 
   if (loadError) return "Error loading Maps";
   if (!isLoaded) return "Loading Maps";
-  console.log(myLocation, "myLocation");
-  console.log(restaurantLocations, "restaurantLocations");
 
   return (
     <GoogleMap
@@ -63,10 +61,9 @@ export default function Map() {
       center={center}
       options={options}
       onClick={onMapClick}
-      // onLoad={onMapLoad}
+      onLoad={onMapLoad}
     >
       {restaurantLocations.map((restaurant) => {
-        debugger;
         return (
           <Marker
             key={restaurant.id}
