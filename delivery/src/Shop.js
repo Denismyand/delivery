@@ -5,7 +5,6 @@ export default function Shop({ menu, cart, handleAddToCart }) {
   let cfkMenu = menu.filter((dish) => dish.restaurant === "CFK");
   let johnsMenu = menu.filter((dish) => dish.restaurant === "Uncle John's");
   let sonimodMenu = menu.filter((dish) => dish.restaurant === "Sonimod Pizza");
-
   const [restaurant, setRestaurant] = useState(mcMenu);
 
   function chooseRestaurant(brand) {
@@ -79,10 +78,11 @@ function Menu({ restaurant, handleAddToCart }) {
         {restaurant.map((dish) => (
           <div className="Dish" key={dish.id}>
             <img
+              className="MenuDishImage"
               src={dish.image}
               alt={dish.product}
               width="100%"
-              height="350px"
+              height="100%"
             />
             <div>
               <p className="DishName">{dish.product}</p>

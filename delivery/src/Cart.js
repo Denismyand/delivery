@@ -1,6 +1,7 @@
 import { dishes } from "./Menu.js";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import Map from "./Map.js";
 
 const orders = [];
 
@@ -56,6 +57,7 @@ export default function Cart({
   return (
     <div className="CartContent">
       <div className="PersonalInfo">
+        <Map />
         <Input
           toinput="name"
           value={custName}
@@ -90,6 +92,7 @@ export default function Cart({
       </div>
       <button
         className="CartSubmit"
+        disabled={cart.length < 1}
         onClick={() => {
           getOrder();
           localStorage.clear();
