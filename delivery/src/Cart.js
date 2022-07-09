@@ -57,7 +57,7 @@ export default function Cart({
   return (
     <div className="CartContent">
       <div className="PersonalInfo">
-        <Map />
+        <Map setCustAddress={setCustAddress} />
         <Input
           toinput="name"
           value={custName}
