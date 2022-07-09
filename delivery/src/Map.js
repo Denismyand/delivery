@@ -5,7 +5,6 @@ import {
   InfoWindow,
 } from "@react-google-maps/api";
 import { useState, useCallback, useRef } from "react";
-import { v4 as uuidv4 } from "uuid";
 
 import mapStyles from "./mapstyles.js";
 import { restaurantLocations } from "./restaurants";
@@ -30,15 +29,11 @@ export default function Map() {
     libraries,
   });
 
-  const [myLocation, setMyLocation] = useState({
-    id: uuidv4(),
-    lat: 50.013615,
-    lng: 36.32684,
-  });
+  const [myLocation, setMyLocation] = useState(null);
 
   const onMapClick = (event) => {
     setMyLocation({
-      id: uuidv4(),
+      name: "Your location",
       lat: event.latLng.lat(),
       lng: event.latLng.lng(),
     });
@@ -57,7 +52,7 @@ export default function Map() {
   return (
     <GoogleMap
       mapContainerStyle={mapContainerStyle}
-      zoom={15}
+      zoom={13}
       center={center}
       options={options}
       onClick={onMapClick}
@@ -73,17 +68,22 @@ export default function Map() {
         );
       })}
       {selected ? (
-        <InfoWindow position={{ lat: selected.lat, lng: selected.lng }}>
+        <InfoWindow
+          position={{ lat: selected.lat, lng: selected.lng }}
+          onCloseClick={() => setSelected(null)}
+        >
           <div>
-            <h1>{selected.name}</h1>
+            <h3>{selected.name}</h3>
           </div>
         </InfoWindow>
       ) : null}
 
-      <Marker
-        key={myLocation.id}
-        position={{ lat: myLocation.lat, lng: myLocation.lng }}
-      />
+      {myLocation ? (
+        <Marker
+          position={{ lat: myLocation.lat, lng: myLocation.lng }}
+          onClick={() => setSelected(myLocation)}
+        />
+      ) : null}
     </GoogleMap>
   );
 }
