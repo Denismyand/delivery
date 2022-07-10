@@ -44,15 +44,24 @@ export default function Map({ setCustAddress }) {
     libraries,
   });
 
+  function handleGetAddress(lat, lng) {
+    fetch(
+      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${process.env.REACT_APP_GMAPS_API_KEY}`
+    )
+      .then((response) => response.json())
+      .then((results) => setCustAddress(results.results[0].formatted_address));
+  }
+
   const [myLocation, setMyLocation] = useState(null);
 
-  const onMapClick = (event) => {
+  function onMapClick(event) {
+    handleGetAddress(event.latLng.lat(), event.latLng.lng());
     setMyLocation({
       name: "Your location",
       lat: event.latLng.lat(),
       lng: event.latLng.lng(),
     });
-  };
+  }
 
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
@@ -110,18 +119,23 @@ export default function Map({ setCustAddress }) {
         panTo={panTo}
         setCustAddress={setCustAddress}
         setMyLocation={setMyLocation}
+        handleGetAddress={handleGetAddress}
       />
     </div>
   );
 }
 
-function Locate({ panTo }) {
+function Locate({ panTo, handleGetAddress }) {
   return (
     <button
       className="LocatorButton"
       onClick={() => {
         navigator.geolocation.getCurrentPosition(
           (position) => {
+            handleGetAddress(
+              position.coords.latitude,
+              position.coords.longitude
+            );
             panTo({
               lat: position.coords.latitude,
               lng: position.coords.longitude,
@@ -140,7 +154,7 @@ function Locate({ panTo }) {
   );
 }
 
-function Search({ panTo, setCustAddress, setMyLocation }) {
+function Search({ panTo, setCustAddress, setMyLocation, handleGetAddress }) {
   const {
     ready,
     value,
@@ -155,6 +169,7 @@ function Search({ panTo, setCustAddress, setMyLocation }) {
           try {
             const results = await getGeocode({ address });
             const { lat, lng } = await getLatLng(results[0]);
+            console.log(results[0]);
             panTo({ lat, lng });
             setMyLocation({
               name: "Your location",
@@ -192,6 +207,7 @@ function Search({ panTo, setCustAddress, setMyLocation }) {
         panTo={panTo}
         setCustAddress={setCustAddress}
         setMyLocation={setMyLocation}
+        handleGetAddress={handleGetAddress}
       />
     </>
   );
