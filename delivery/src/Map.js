@@ -7,6 +7,7 @@ import {
 import { useState, useCallback, useRef } from "react";
 
 import mapStyles from "./mapstyles.js";
+import locator from "./pics/location.svg";
 import { restaurantLocations } from "./restaurants";
 
 import usePlacesAutocomplete, {
@@ -69,12 +70,7 @@ export default function Map({ setCustAddress }) {
   if (!isLoaded) return "Loading Maps";
 
   return (
-    <>
-      <Search
-        panTo={panTo}
-        setCustAddress={setCustAddress}
-        setMyLocation={setMyLocation}
-      />
+    <div className="Map">
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={13}
@@ -110,7 +106,37 @@ export default function Map({ setCustAddress }) {
           />
         ) : null}
       </GoogleMap>
-    </>
+      <Search
+        panTo={panTo}
+        setCustAddress={setCustAddress}
+        setMyLocation={setMyLocation}
+      />
+    </div>
+  );
+}
+
+function Locate({ panTo }) {
+  return (
+    <button
+      className="LocatorButton"
+      onClick={() => {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            panTo({
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            });
+          },
+          () => null
+        );
+      }}
+    >
+      <img
+        className="Locator"
+        src={locator}
+        alt="Locate position on your location"
+      />
+    </button>
   );
 }
 
@@ -123,7 +149,7 @@ function Search({ panTo, setCustAddress, setMyLocation }) {
     clearSuggestions,
   } = usePlacesAutocomplete();
   return (
-    <div>
+    <>
       <Combobox
         onSelect={async (address) => {
           try {
@@ -144,6 +170,7 @@ function Search({ panTo, setCustAddress, setMyLocation }) {
         }}
       >
         <ComboboxInput
+          className="Search"
           value={value}
           onChange={(e) => setValue(e.target.value)}
           disabled={!ready}
@@ -161,6 +188,11 @@ function Search({ panTo, setCustAddress, setMyLocation }) {
           </ComboboxList>
         </ComboboxPopover>
       </Combobox>
-    </div>
+      <Locate
+        panTo={panTo}
+        setCustAddress={setCustAddress}
+        setMyLocation={setMyLocation}
+      />
+    </>
   );
 }
