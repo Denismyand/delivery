@@ -57,7 +57,11 @@ export default function Cart({
   return (
     <div className="CartContent">
       <div className="PersonalInfo">
-        <Map setCustAddress={setCustAddress} />
+        <Map
+          setCustAddress={setCustAddress}
+          custAddress={custAddress}
+          cart={cart}
+        />
         <Input
           toinput="name"
           value={custName}
@@ -73,11 +77,7 @@ export default function Cart({
           value={custPhone}
           onChange={(e) => setCustPhone(e.target.value)}
         />
-        <Input
-          toinput="address"
-          value={custAddress}
-          onChange={(e) => setCustAddress(e.target.value)}
-        />
+        <Input toinput="address" value={custAddress} disabled={true} />
       </div>
       <div className="Cart">
         <CartItems
@@ -106,7 +106,7 @@ export default function Cart({
   );
 }
 
-function Input({ toinput, value, onChange }) {
+function Input({ toinput, value, onChange, disabled }) {
   function Capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
@@ -118,6 +118,7 @@ function Input({ toinput, value, onChange }) {
         placeholder={`Enter your ${toinput}`}
         value={value}
         onChange={onChange}
+        disabled={disabled}
       />
     </div>
   );

@@ -3,8 +3,9 @@ import {
   useLoadScript,
   Marker,
   InfoWindow,
+  DirectionsRenderer,
 } from "@react-google-maps/api";
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 
 import mapStyles from "./mapstyles.js";
 import locator from "./pics/location.svg";
@@ -38,11 +39,46 @@ const options = {
   zoomControl: true,
 };
 
-export default function Map({ setCustAddress }) {
+export default function Map({ setCustAddress, custAddress, cart }) {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GMAPS_API_KEY,
     libraries,
   });
+
+  const [directionsResponse, setDirectionsResponse] = useState(null);
+  const [closestRestaurant, setClosestRestaurant] = useState("");
+  const [distance, setDistance] = useState("");
+  const [duration, setDuration] = useState("");
+
+  async function getDeliveryRate() {
+    // eslint-disable-next-line no-undef
+    const directionsService = new google.maps.DirectionsService();
+    const results = await directionsService.route({
+      origin: closestRestaurant,
+      destination: custAddress,
+      // eslint-disable-next-line no-undef
+      travelMode: google.maps.TravelMode.DRIVING,
+    });
+    setDirectionsResponse(results);
+    setDistance(results.routes[0].legs[0].distance.text);
+    setDuration(results.routes[0].legs[0].duration.text);
+  }
+
+  function getNearRestaurant() {
+    if (cart.length > 0) {
+      restaurantLocations.map((restaurant) => {
+        if (restaurant.name === cart[0].restaurant) {
+          fetch(
+            `https://maps.googleapis.com/maps/api/geocode/json?latlng=${restaurant.lat},${restaurant.lng}&key=${process.env.REACT_APP_GMAPS_API_KEY}`
+          )
+            .then((response) => response.json())
+            .then((results) =>
+              setClosestRestaurant(results.results[0].formatted_address)
+            );
+        }
+      });
+    }
+  }
 
   function handleGetAddress(lat, lng) {
     fetch(
@@ -74,6 +110,10 @@ export default function Map({ setCustAddress }) {
   }, []);
 
   const [selected, setSelected] = useState(null);
+  useEffect(() => {
+    getNearRestaurant();
+    getDeliveryRate();
+  }, [custAddress]);
 
   if (loadError) return "Error loading Maps";
   if (!isLoaded) return "Loading Maps";
@@ -85,7 +125,10 @@ export default function Map({ setCustAddress }) {
         zoom={13}
         center={center}
         options={options}
-        onClick={onMapClick}
+        onClick={(event) => {
+          onMapClick(event);
+          getDeliveryRate();
+        }}
         onLoad={onMapLoad}
       >
         {restaurantLocations.map((restaurant) => {
@@ -107,12 +150,14 @@ export default function Map({ setCustAddress }) {
             </div>
           </InfoWindow>
         ) : null}
-
         {myLocation ? (
-          <Marker
-            position={{ lat: myLocation.lat, lng: myLocation.lng }}
-            onClick={() => setSelected(myLocation)}
-          />
+          <>
+            <Marker
+              position={{ lat: myLocation.lat, lng: myLocation.lng }}
+              onClick={() => setSelected(myLocation)}
+            />
+            <DirectionsRenderer directions={directionsResponse} />
+          </>
         ) : null}
       </GoogleMap>
       <Search
@@ -121,6 +166,12 @@ export default function Map({ setCustAddress }) {
         setMyLocation={setMyLocation}
         handleGetAddress={handleGetAddress}
       />
+      {directionsResponse ? (
+        <>
+          <p>Distance to the nearest restaurant: {distance}</p>
+          <p>Approximate delivery time: {duration}</p>
+        </>
+      ) : null}
     </div>
   );
 }
@@ -162,6 +213,7 @@ function Search({ panTo, setCustAddress, setMyLocation, handleGetAddress }) {
     suggestions: { status, data },
     clearSuggestions,
   } = usePlacesAutocomplete();
+
   return (
     <>
       <Combobox
@@ -169,7 +221,6 @@ function Search({ panTo, setCustAddress, setMyLocation, handleGetAddress }) {
           try {
             const results = await getGeocode({ address });
             const { lat, lng } = await getLatLng(results[0]);
-            console.log(results[0]);
             panTo({ lat, lng });
             setMyLocation({
               name: "Your location",
