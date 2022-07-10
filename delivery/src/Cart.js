@@ -2,6 +2,7 @@ import { dishes } from "./Menu.js";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Map from "./Map.js";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const orders = [];
 
@@ -16,6 +17,7 @@ export default function Cart({
   const [custEmail, setCustEmail] = useState("");
   const [custPhone, setCustPhone] = useState("");
   const [custAddress, setCustAddress] = useState("");
+  const [isVerified, setIsVerified] = useState(false);
 
   let total = 0;
 
@@ -32,6 +34,10 @@ export default function Cart({
     setCustEmail("");
     setCustPhone("");
     setCustAddress("");
+  }
+  function captcha(value) {
+    console.log("Captcha value:", value);
+    setIsVerified(!isVerified);
   }
 
   function cartTotal() {
@@ -79,35 +85,49 @@ export default function Cart({
         />
         <Input toinput="address" value={custAddress} disabled={true} />
       </div>
-      <div className="Cart">
-        <CartItems
-          cart={cart}
-          handleChangeQuantity={handleChangeQuantity}
-          handleAddToCart={handleAddToCart}
-          handleDecreaseQuantity={handleDecreaseQuantity}
-        />
+      <div className="CartSection">
+        <div className="Cart">
+          <CartItems
+            cart={cart}
+            handleChangeQuantity={handleChangeQuantity}
+            handleAddToCart={handleAddToCart}
+            handleDecreaseQuantity={handleDecreaseQuantity}
+          />
+        </div>
+        <div className="CartTotalSection">
+          {cart.length > 0 ? (
+            <div className="Captcha">
+              <ReCAPTCHA
+                sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
+                onChange={captcha}
+              />
+            </div>
+          ) : null}
+
+          <div className="CartTotal">
+            <p>Total price: {cartTotal()}</p>
+          </div>
+          <button
+            className="CartSubmit"
+            disabled={
+              cart.length < 1 ||
+              custName === "" ||
+              custPhone === "" ||
+              custEmail === "" ||
+              custAddress === "" ||
+              !isVerified
+            }
+            onClick={() => {
+              getOrder();
+              localStorage.clear();
+              setCart(dishes.filter((item) => item.cartQuantity));
+              createNotification("ordered");
+            }}
+          >
+            <b>Submit</b>
+          </button>
+        </div>
       </div>
-      <div className="CartTotal">
-        <p>Total price: {cartTotal()}</p>
-      </div>
-      <button
-        className="CartSubmit"
-        disabled={
-          cart.length < 1 ||
-          custName === "" ||
-          custPhone === "" ||
-          custEmail === "" ||
-          custAddress === ""
-        }
-        onClick={() => {
-          getOrder();
-          localStorage.clear();
-          setCart(dishes.filter((item) => item.cartQuantity));
-          createNotification("ordered");
-        }}
-      >
-        <b>Submit</b>
-      </button>
     </div>
   );
 }
