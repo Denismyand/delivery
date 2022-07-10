@@ -163,8 +163,8 @@ function CartItems({
           <img
             src={dish.image}
             alt={dish.name}
-            width="285px"
-            height="250px"
+            width="325px"
+            height="300px"
             style={{ overflow: "hidden" }}
           />
           <div className="CartItemDescription">

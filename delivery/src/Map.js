@@ -171,8 +171,22 @@ export default function Map({ setCustAddress, custAddress, cart }) {
         />
         {directionsResponse ? (
           <>
-            <p>Distance to the nearest restaurant: {distance}</p>
-            <p>Approximate delivery time: {duration}</p>
+            <p>
+              Distance to the closest restaurant:
+              {distance ? (
+                <b> {distance}</b>
+              ) : (
+                <b> Loading failed. Try again</b>
+              )}
+            </p>
+            <p>
+              Approximate delivery time:
+              {duration ? (
+                <b> {duration} + 45 mins to produce a meal</b>
+              ) : (
+                <b> Loading failed. Try again</b>
+              )}
+            </p>
           </>
         ) : null}
       </div>
