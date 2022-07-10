@@ -37,10 +37,7 @@ function createNotification(type, dish, cartItem) {
       break;
 
     case "ordered":
-      NotificationManager.success(
-        `Our usual delivery time is up to 45 mins`,
-        `Order Placed!`
-      );
+      NotificationManager.success(``, `Order Placed!`);
       break;
   }
 }

@@ -92,7 +92,13 @@ export default function Cart({
       </div>
       <button
         className="CartSubmit"
-        disabled={cart.length < 1}
+        disabled={
+          cart.length < 1 ||
+          custName === "" ||
+          custPhone === "" ||
+          custEmail === "" ||
+          custAddress === ""
+        }
         onClick={() => {
           getOrder();
           localStorage.clear();

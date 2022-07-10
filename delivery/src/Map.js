@@ -60,8 +60,10 @@ export default function Map({ setCustAddress, custAddress, cart }) {
       travelMode: google.maps.TravelMode.DRIVING,
     });
     setDirectionsResponse(results);
-    setDistance(results.routes[0].legs[0].distance.text);
-    setDuration(results.routes[0].legs[0].duration.text);
+    if (directionsResponse) {
+      setDistance(results.routes[0].legs[0].distance.text);
+      setDuration(results.routes[0].legs[0].duration.text);
+    }
   }
 
   function getNearRestaurant() {
@@ -119,60 +121,62 @@ export default function Map({ setCustAddress, custAddress, cart }) {
   if (!isLoaded) return "Loading Maps";
 
   return (
-    <div className="Map">
-      <GoogleMap
-        mapContainerStyle={mapContainerStyle}
-        zoom={13}
-        center={center}
-        options={options}
-        onClick={(event) => {
-          onMapClick(event);
-          getDeliveryRate();
-        }}
-        onLoad={onMapLoad}
-      >
-        {restaurantLocations.map((restaurant) => {
-          return (
-            <Marker
-              key={restaurant.id}
-              position={{ lat: restaurant.lat, lng: restaurant.lng }}
-              onClick={() => setSelected(restaurant)}
-            />
-          );
-        })}
-        {selected ? (
-          <InfoWindow
-            position={{ lat: selected.lat, lng: selected.lng }}
-            onCloseClick={() => setSelected(null)}
-          >
-            <div>
-              <h3>{selected.name}</h3>
-            </div>
-          </InfoWindow>
-        ) : null}
-        {myLocation ? (
+    <>
+      <div className="Map">
+        <GoogleMap
+          mapContainerStyle={mapContainerStyle}
+          zoom={13}
+          center={center}
+          options={options}
+          onClick={(event) => {
+            onMapClick(event);
+            getDeliveryRate();
+          }}
+          onLoad={onMapLoad}
+        >
+          {restaurantLocations.map((restaurant) => {
+            return (
+              <Marker
+                key={restaurant.id}
+                position={{ lat: restaurant.lat, lng: restaurant.lng }}
+                onClick={() => setSelected(restaurant)}
+              />
+            );
+          })}
+          {selected ? (
+            <InfoWindow
+              position={{ lat: selected.lat, lng: selected.lng }}
+              onCloseClick={() => setSelected(null)}
+            >
+              <div>
+                <h3>{selected.name}</h3>
+              </div>
+            </InfoWindow>
+          ) : null}
+          {myLocation ? (
+            <>
+              <Marker
+                position={{ lat: myLocation.lat, lng: myLocation.lng }}
+                onClick={() => setSelected(myLocation)}
+              />
+              <DirectionsRenderer directions={directionsResponse} />
+            </>
+          ) : null}
+        </GoogleMap>
+        <Search
+          panTo={panTo}
+          setCustAddress={setCustAddress}
+          setMyLocation={setMyLocation}
+          handleGetAddress={handleGetAddress}
+        />
+        {directionsResponse ? (
           <>
-            <Marker
-              position={{ lat: myLocation.lat, lng: myLocation.lng }}
-              onClick={() => setSelected(myLocation)}
-            />
-            <DirectionsRenderer directions={directionsResponse} />
+            <p>Distance to the nearest restaurant: {distance}</p>
+            <p>Approximate delivery time: {duration}</p>
           </>
         ) : null}
-      </GoogleMap>
-      <Search
-        panTo={panTo}
-        setCustAddress={setCustAddress}
-        setMyLocation={setMyLocation}
-        handleGetAddress={handleGetAddress}
-      />
-      {directionsResponse ? (
-        <>
-          <p>Distance to the nearest restaurant: {distance}</p>
-          <p>Approximate delivery time: {duration}</p>
-        </>
-      ) : null}
-    </div>
+      </div>
+    </>
   );
 }
 
