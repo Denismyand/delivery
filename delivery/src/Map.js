@@ -194,21 +194,26 @@ export default function Map({ setCustAddress, custAddress, cart }) {
   );
 }
 
-function Locate({ panTo, handleGetAddress }) {
+function Locate({ panTo, handleGetAddress, setMyLocation }) {
   return (
     <button
       className="LocatorButton"
       onClick={() => {
         navigator.geolocation.getCurrentPosition(
           (position) => {
-            handleGetAddress(
-              position.coords.latitude,
-              position.coords.longitude
-            );
             panTo({
               lat: position.coords.latitude,
               lng: position.coords.longitude,
             });
+            setMyLocation({
+              name: "Your location",
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            });
+            handleGetAddress(
+              position.coords.latitude,
+              position.coords.longitude
+            );
           },
           () => null
         );
@@ -274,7 +279,6 @@ function Search({ panTo, setCustAddress, setMyLocation, handleGetAddress }) {
       </Combobox>
       <Locate
         panTo={panTo}
-        setCustAddress={setCustAddress}
         setMyLocation={setMyLocation}
         handleGetAddress={handleGetAddress}
       />
