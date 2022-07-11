@@ -1,11 +1,11 @@
 import "./App.css";
-import { dishes } from "./Menu.js";
-import { ButtonFooter } from "./MuiCustomized.js";
 import "react-notifications/lib/notifications.css";
-import { theme } from "./MuiCustomized.js";
-import { ThemeProvider } from "@mui/system";
+import { dishes } from "./Menu.js";
+import { theme, ButtonFooter } from "./MuiCustomized.js";
 import Shop from "./Shop.js";
 import Cart from "./Cart.js";
+import { ThemeProvider } from "@mui/system";
+
 import { useState, useEffect } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import {

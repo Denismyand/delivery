@@ -7,7 +7,7 @@ import {
 } from "@react-google-maps/api";
 import { useState, useCallback, useRef, useEffect } from "react";
 
-import mapStyles from "./mapstyles.js";
+import { mapStyles } from "./mapstyles.js";
 import locator from "./pics/location.svg";
 import { restaurantLocations } from "./restaurants";
 
@@ -263,13 +263,14 @@ function Search({ panTo, setCustAddress, setMyLocation, handleGetAddress }) {
           value={value}
           onChange={(e) => setValue(e.target.value)}
           disabled={!ready}
-          placeholder="Enter an address"
+          placeholder="Enter your address"
         />
         <ComboboxPopover>
           <ComboboxList>
             {status === "OK" &&
               data.map(({ place_id, description }) => (
                 <ComboboxOption
+                  className="SearchSuggestion"
                   key={place_id}
                   value={description}
                 ></ComboboxOption>

@@ -44,8 +44,8 @@ function Restaurants({
 }) {
   return (
     <div className="RestaurantList">
-      <h2>Shops:</h2>
-      <Stack alignItems="center" spacing="40px" direction="column" j>
+      <Stack alignItems="center" spacing="40px" directioStackn="column">
+        <h2>Shops:</h2>
         <ButtonRestaurant
           disabled={cart.length > 0}
           onClick={() => chooseRestaurant(mcMenu)}
@@ -95,7 +95,7 @@ function Menu({ restaurant, handleAddToCart }) {
               height="100%"
             />
             <div>
-              <p className="DishName">{dish.product}</p>
+              <b className="DishName">{dish.product}</b>
               <ButtonMenu onClick={() => handleAddToCart(dish)}>
                 Add to cart
               </ButtonMenu>

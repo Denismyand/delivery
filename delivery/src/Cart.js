@@ -1,7 +1,15 @@
 import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { Stack } from "@mui/material";
 import Map from "./Map.js";
 import ReCAPTCHA from "react-google-recaptcha";
+import {
+  ButtonSubmitOrder,
+  ButtonArrowUp,
+  ButtonArrowDown,
+  InputPersonalInfo,
+  InputCartQuantity,
+} from "./MuiCustomized.js";
 
 export default function Cart({
   cart,
@@ -44,7 +52,7 @@ export default function Cart({
     setCustPhone("");
     setCustAddress("");
   }
-  function captcha(value) {
+  function handleCaptchaVerify(value) {
     console.log("Captcha value:", value);
     setIsVerified(!isVerified);
   }
@@ -76,29 +84,38 @@ export default function Cart({
 
   return (
     <div className="CartContent">
-      <div className="PersonalInfo">
+      <Stack
+        className="PersonalInfo"
+        alignItems="center"
+        spacing="50px"
+        directioStackn="column"
+      >
         <Map
           setCustAddress={setCustAddress}
           custAddress={custAddress}
           cart={cart}
         />
-        <Input
-          toinput="name"
+        <InputPersonalInfo
+          toInput="name"
           value={custName}
           onChange={(e) => setCustName(e.target.value)}
         />
-        <Input
-          toinput="email"
+        <InputPersonalInfo
+          toInput="email"
           value={custEmail}
           onChange={(e) => setCustEmail(e.target.value)}
         />
-        <Input
-          toinput="phone"
+        <InputPersonalInfo
+          toInput="phone"
           value={custPhone}
           onChange={(e) => setCustPhone(e.target.value)}
         />
-        <Input toinput="address" value={custAddress} disabled={true} />
-      </div>
+        <InputPersonalInfo
+          toInput="address"
+          value={custAddress}
+          disabled={true}
+        />
+      </Stack>
       <div className="CartSection">
         <div className="Cart">
           <CartItems
@@ -113,7 +130,7 @@ export default function Cart({
             <div className="Captcha">
               <ReCAPTCHA
                 sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
-                onChange={captcha}
+                onChange={handleCaptchaVerify}
               />
             </div>
           ) : null}
@@ -121,8 +138,7 @@ export default function Cart({
           <div className="CartTotal">
             <p>Total price: {cartTotal()}</p>
           </div>
-          <button
-            className="CartSubmit"
+          <ButtonSubmitOrder
             disabled={
               cart.length < 1 ||
               custName === "" ||
@@ -137,28 +153,10 @@ export default function Cart({
               createNotification("ordered");
             }}
           >
-            <b>Submit</b>
-          </button>
+            Submit
+          </ButtonSubmitOrder>
         </div>
       </div>
-    </div>
-  );
-}
-
-function Input({ toinput, value, onChange, disabled }) {
-  function Capitalize(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  }
-  return (
-    <div>
-      <p className="InfoFieldName">{Capitalize(toinput) + ":"}</p>
-      <input
-        className="InfoField"
-        placeholder={`Enter your ${toinput}`}
-        value={value}
-        onChange={onChange}
-        disabled={disabled}
-      />
     </div>
   );
 }
@@ -181,30 +179,26 @@ function CartItems({
             style={{ overflow: "hidden" }}
           />
           <div className="CartItemDescription">
-            <div className="CartItemName">{dish.product}</div>
+            <div className="CartItemName">
+              <b>{dish.product}</b>
+            </div>
             <div className="CartItemCost">
               Price: {dish.cost * dish.cartQuantity}₴
             </div>
             <div className="CartItemQuantity">
-              <input
-                className="CartQuantityInput"
-                type="number"
+              <InputCartQuantity
                 value={dish.cartQuantity}
                 onChange={(e) => handleChangeQuantity(dish, e)}
-              ></input>
+              ></InputCartQuantity>
               <div className="CartQuantityButtons">
-                <button
-                  className="ArrowButtonTop"
-                  onClick={() => handleAddToCart(dish)}
-                >
-                  ▲
-                </button>
-                <button
-                  className="ArrowButtonBottom"
-                  onClick={() => handleDecreaseQuantity(dish)}
-                >
-                  ▼
-                </button>
+                <Stack direction="column">
+                  <ButtonArrowUp
+                    onClick={() => handleAddToCart(dish)}
+                  ></ButtonArrowUp>
+                  <ButtonArrowDown
+                    onClick={() => handleDecreaseQuantity(dish)}
+                  ></ButtonArrowDown>
+                </Stack>
               </div>
             </div>
           </div>
