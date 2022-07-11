@@ -1,7 +1,8 @@
 import "./App.css";
 import { dishes } from "./Menu.js";
 import "react-notifications/lib/notifications.css";
-
+import { theme } from "./theme.js";
+import { ThemeProvider } from "@mui/system";
 import Shop from "./Shop.js";
 import Cart from "./Cart.js";
 import { useState, useEffect } from "react";
@@ -97,7 +98,7 @@ export default function App() {
   }, [cart]);
 
   return (
-    <div>
+    <ThemeProvider theme={theme}>
       <Footer />
       <Routes>
         <Route
@@ -120,7 +121,7 @@ export default function App() {
         />
       </Routes>
       <NotificationContainer />
-    </div>
+    </ThemeProvider>
   );
 }
 

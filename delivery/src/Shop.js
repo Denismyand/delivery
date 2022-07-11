@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Stack } from "@mui/material";
+import { ButtonRestaurant } from "./Muibutton.js";
 
 export default function Shop({ menu, cart, handleAddToCart }) {
   let mcMenu = menu.filter((dish) => dish.restaurant === "McDonny");
@@ -37,36 +39,44 @@ function Restaurants({
   return (
     <div className="RestaurantList">
       <h1>Shops:</h1>
-      <div className="RestaurantButtonBar">
-        <button
+      <Stack alignItems="center" spacing="40px" direction="column" j>
+        <ButtonRestaurant
+          variant="contained"
+          color="primary"
+          size="large"
           disabled={cart.length > 0}
-          className="RestaurantButton"
           onClick={() => chooseRestaurant(mcMenu)}
         >
           McDonny
-        </button>
-        <button
+        </ButtonRestaurant>
+        <ButtonRestaurant
+          variant="contained"
+          color="primary"
+          size="large"
           disabled={cart.length > 0}
-          className="RestaurantButton"
           onClick={() => chooseRestaurant(cfkMenu)}
         >
           CFK
-        </button>
-        <button
+        </ButtonRestaurant>
+        <ButtonRestaurant
+          variant="contained"
+          color="primary"
+          size="large"
           disabled={cart.length > 0}
-          className="RestaurantButton"
           onClick={() => chooseRestaurant(johnsMenu)}
         >
           Uncle John's
-        </button>
-        <button
+        </ButtonRestaurant>
+        <ButtonRestaurant
+          variant="contained"
+          color="primary"
+          size="large"
           disabled={cart.length > 0}
-          className="RestaurantButton"
           onClick={() => chooseRestaurant(sonimodMenu)}
         >
           Sonimod Pizza
-        </button>
-      </div>
+        </ButtonRestaurant>
+      </Stack>
     </div>
   );
 }

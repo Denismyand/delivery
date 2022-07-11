@@ -56,19 +56,19 @@ input[type="number"]::-webkit-inner-spin-button {
   display: flex;
   height: 850px;
   margin-top: 20px;
-  gap: 5%;
-  padding-left: 5%;
-  padding-right: 5%;
+  gap: 2.5%;
+  padding-left: 2.5%;
+  padding-right: 2.5%;
 }
 .RestaurantList {
   background-color: #e35959;
   text-align: center;
-  padding-top: 30px;
+  padding-top: 40px;
   padding-bottom: 30px;
-  width: 20%;
+  width: 30%;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 40px;
   border-radius: 5px;
 }
 
