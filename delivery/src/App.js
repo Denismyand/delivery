@@ -1,7 +1,8 @@
 import "./App.css";
 import { dishes } from "./Menu.js";
+import { ButtonFooter } from "./MuiCustomized.js";
 import "react-notifications/lib/notifications.css";
-import { theme } from "./theme.js";
+import { theme } from "./MuiCustomized.js";
 import { ThemeProvider } from "@mui/system";
 import Shop from "./Shop.js";
 import Cart from "./Cart.js";
@@ -104,7 +105,12 @@ export default function App() {
         <Route
           path="/"
           element={
-            <Shop cart={cart} menu={menu} handleAddToCart={handleAddToCart} />
+            <Shop
+              cart={cart}
+              setCart={setCart}
+              menu={menu}
+              handleAddToCart={handleAddToCart}
+            />
           }
         />
         <Route
@@ -128,13 +134,15 @@ export default function App() {
 function Footer() {
   return (
     <div className="Footer">
-      <Link className="ShopLink" to="/">
-        Shop
+      <Link className="Link" to="/">
+        <ButtonFooter>Shop </ButtonFooter>
       </Link>
+
       <div className="VerticalLine"></div>
-      <Link className="CartLink" to="cart">
-        Cart
+      <Link className="Link" to="cart">
+        <ButtonFooter>Cart </ButtonFooter>
       </Link>
     </div>
   );
 }
+

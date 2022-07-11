@@ -1,4 +1,3 @@
-import { dishes } from "./Menu.js";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Map from "./Map.js";
@@ -119,8 +118,7 @@ export default function Cart({
             }
             onClick={() => {
               getOrder();
-              localStorage.clear();
-              setCart(dishes.filter((item) => item.cartQuantity));
+              setCart([]);
               createNotification("ordered");
             }}
           >

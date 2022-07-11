@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { Stack } from "@mui/material";
-import { ButtonRestaurant } from "./Muibutton.js";
+import {
+  ButtonRestaurant,
+  ButtonMenu,
+  ButtonClearCart,
+} from "./MuiCustomized.js";
 
-export default function Shop({ menu, cart, handleAddToCart }) {
+export default function Shop({ menu, cart, handleAddToCart, setCart }) {
   let mcMenu = menu.filter((dish) => dish.restaurant === "McDonny");
   let cfkMenu = menu.filter((dish) => dish.restaurant === "CFK");
   let johnsMenu = menu.filter((dish) => dish.restaurant === "Uncle John's");
@@ -22,6 +26,7 @@ export default function Shop({ menu, cart, handleAddToCart }) {
         johnsMenu={johnsMenu}
         sonimodMenu={sonimodMenu}
         cart={cart}
+        setCart={setCart}
       />
       <Menu restaurant={restaurant} handleAddToCart={handleAddToCart} />
     </div>
@@ -35,47 +40,42 @@ function Restaurants({
   johnsMenu,
   sonimodMenu,
   cart,
+  setCart,
 }) {
   return (
     <div className="RestaurantList">
-      <h1>Shops:</h1>
+      <h2>Shops:</h2>
       <Stack alignItems="center" spacing="40px" direction="column" j>
         <ButtonRestaurant
-          variant="contained"
-          color="primary"
-          size="large"
           disabled={cart.length > 0}
           onClick={() => chooseRestaurant(mcMenu)}
         >
-          McDonny
+          <b>McDonny</b>
         </ButtonRestaurant>
         <ButtonRestaurant
-          variant="contained"
-          color="primary"
-          size="large"
           disabled={cart.length > 0}
           onClick={() => chooseRestaurant(cfkMenu)}
         >
-          CFK
+          <b>CFK</b>
         </ButtonRestaurant>
         <ButtonRestaurant
-          variant="contained"
-          color="primary"
-          size="large"
           disabled={cart.length > 0}
           onClick={() => chooseRestaurant(johnsMenu)}
         >
-          Uncle John's
+          <b>Uncle John's</b>
         </ButtonRestaurant>
         <ButtonRestaurant
-          variant="contained"
-          color="primary"
-          size="large"
           disabled={cart.length > 0}
           onClick={() => chooseRestaurant(sonimodMenu)}
         >
-          Sonimod Pizza
+          <b>Sonimod Pizza</b>
         </ButtonRestaurant>
+        <ButtonClearCart
+          disabled={cart.length === 0}
+          onClick={() => setCart([])}
+        >
+          Clear cart
+        </ButtonClearCart>
       </Stack>
     </div>
   );
@@ -96,12 +96,9 @@ function Menu({ restaurant, handleAddToCart }) {
             />
             <div>
               <p className="DishName">{dish.product}</p>
-              <button
-                className="AddToCart"
-                onClick={() => handleAddToCart(dish)}
-              >
+              <ButtonMenu onClick={() => handleAddToCart(dish)}>
                 Add to cart
-              </button>
+              </ButtonMenu>
             </div>
           </div>
         ))}
