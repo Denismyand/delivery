@@ -1,9 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Map from "./Map.js";
 import ReCAPTCHA from "react-google-recaptcha";
-
-const orders = [];
 
 export default function Cart({
   cart,
@@ -17,18 +15,30 @@ export default function Cart({
   const [custPhone, setCustPhone] = useState("");
   const [custAddress, setCustAddress] = useState("");
   const [isVerified, setIsVerified] = useState(false);
+  const [cachedOrders, setCachedOrders] = useState(
+    JSON.parse(localStorage.getItem("orders"))
+  );
+  const [orders, setOrders] = useState(isCached());
 
+  function isCached() {
+    if (cachedOrders) {
+      return cachedOrders;
+    } else return [];
+  }
   let total = 0;
 
   function getOrder() {
-    orders.push({
-      id: uuidv4(),
-      customer_name: custName,
-      customer_email: custEmail,
-      customer_phone: custPhone,
-      customer_address: custAddress,
-      ordered_items: cart,
-    });
+    setOrders([
+      ...orders,
+      {
+        id: uuidv4(),
+        customer_name: custName,
+        customer_email: custEmail,
+        customer_phone: custPhone,
+        customer_address: custAddress,
+        ordered_items: cart,
+      },
+    ]);
     setCustName("");
     setCustEmail("");
     setCustPhone("");
@@ -58,6 +68,11 @@ export default function Cart({
     });
     setCart(changed);
   }
+
+  useEffect(() => {
+    localStorage.setItem("orders", JSON.stringify(orders));
+    setCachedOrders(JSON.parse(localStorage.getItem("orders")));
+  }, [orders]);
 
   return (
     <div className="CartContent">
