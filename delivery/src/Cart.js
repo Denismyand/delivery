@@ -9,6 +9,7 @@ import {
   ButtonArrowDown,
   InputPersonalInfo,
   InputCartQuantity,
+  ButtonCartClearCart,
 } from "./MuiCustomized.js";
 
 export default function Cart({
@@ -138,6 +139,7 @@ export default function Cart({
           <div className="CartTotal">
             <p>Total price: {cartTotal()}</p>
           </div>
+          <ButtonCartClearCart>Clear cart</ButtonCartClearCart>
           <ButtonSubmitOrder
             disabled={
               cart.length < 1 ||

@@ -3,7 +3,7 @@ import { Stack } from "@mui/material";
 import {
   ButtonRestaurant,
   ButtonMenu,
-  ButtonClearCart,
+  ButtonRestaurantClearCart,
 } from "./MuiCustomized.js";
 
 export default function Shop({ menu, cart, handleAddToCart, setCart }) {
@@ -70,12 +70,12 @@ function Restaurants({
         >
           <b>Sonimod Pizza</b>
         </ButtonRestaurant>
-        <ButtonClearCart
+        <ButtonRestaurantClearCart
           disabled={cart.length === 0}
           onClick={() => setCart([])}
         >
           Clear cart
-        </ButtonClearCart>
+        </ButtonRestaurantClearCart>
       </Stack>
     </div>
   );

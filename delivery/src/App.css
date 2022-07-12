@@ -29,7 +29,7 @@ input[type="number"]::-webkit-inner-spin-button {
   width: 100%;
   display: flex;
   height: 60px;
-  box-shadow: 0 3px 10px black;
+  box-shadow: 0 3px 10px;
 }
 .Link {
   text-decoration: none;
@@ -53,6 +53,7 @@ input[type="number"]::-webkit-inner-spin-button {
   height: 850px;
   border: 2px solid #455a64;
   border-radius: 5px;
+  box-shadow: 0 0 10px;
 }
 
 .MenuContent {
@@ -69,6 +70,7 @@ input[type="number"]::-webkit-inner-spin-button {
   height: 850px;
   border: 2px solid #455a64;
   border-radius: 10px;
+  box-shadow: 0 0 10px;
 }
 .Dish {
   position: relative;
@@ -78,6 +80,7 @@ input[type="number"]::-webkit-inner-spin-button {
   height: 600px;
   border: 2px solid #455a64;
   border-radius: 10px;
+  box-shadow: 0 0 5px;
 }
 
 .MenuDishImage {
@@ -112,12 +115,13 @@ input[type="number"]::-webkit-inner-spin-button {
   height: 850px;
   border: 1px solid black;
   border-radius: 5px;
+  box-shadow: 0 0 10px;
 }
 .Map {
   width: 600px;
   height: 300px;
   position: relative;
-  box-shadow: 0 0 0 1px black;
+  box-shadow: 0 0 0 1px;
 }
 .Search {
   padding-left: 10px;
@@ -141,11 +145,11 @@ input[type="number"]::-webkit-inner-spin-button {
 .SearchSuggestion {
   width: 480px;
   line-height: 25px;
-  border: 1px solid #607d8b;
+  border: 1px solid #00bfa5;
   font-size: 18px;
 }
 .SearchSuggestion:hover {
-  border: 1px solid #455a64;
+  border: 1px solid #00bfa5;
   position: relative;
   right: 10px;
   line-height: 30px;
@@ -187,6 +191,7 @@ input[type="number"]::-webkit-inner-spin-button {
   border: 1px solid black;
   border-radius: 5px;
   overflow: auto;
+  box-shadow: 0 0 10px;
 }
 .EmptyCart {
   text-align: center;
@@ -200,6 +205,7 @@ input[type="number"]::-webkit-inner-spin-button {
   flex-direction: row;
   border: 1px solid black;
   border-radius: 5px;
+  box-shadow: 0 0 10px;
 }
 .CartPic {
   width: 315px;
@@ -237,10 +243,9 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 .CartTotal {
   margin-top: 20px;
-  padding: 13px 20px 13px 0;
   height: 50px;
-  font-size: 24px;
+  font-size: 30px;
   position: absolute;
-  bottom: 0;
-  left: 150px;
+  bottom: 95px;
+  right: 360px;
 }

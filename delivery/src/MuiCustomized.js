@@ -13,6 +13,12 @@ export const theme = createTheme({
       dark: "#1b5e20",
       contrastText: "#000000",
     },
+    inputs: {
+      main: "#607d8b",
+      light: "#455a64",
+      dark: "#000000",
+      contrastText: "#000000",
+    },
     secondary: {
       main: "#212121",
       light: "#757575",
@@ -41,6 +47,24 @@ export const quantityInput = createTheme({
   },
 });
 
+export function ButtonFooter({ children }) {
+  return (
+    <Button
+      sx={{
+        height: "60px",
+        width: "200px",
+        fontSize: "20px",
+        textTransform: "none",
+        boxShadow: "0 0 5px",
+      }}
+      variant="text"
+      color="secondary"
+    >
+      {children}
+    </Button>
+  );
+}
+
 export function ButtonRestaurant({ disabled, onClick, children }) {
   return (
     <Button
@@ -49,6 +73,7 @@ export function ButtonRestaurant({ disabled, onClick, children }) {
         width: "300px",
         fontSize: "20px",
         textTransform: "none",
+        boxShadow: "0 0 5px",
       }}
       variant="outlined"
       color="primary"
@@ -71,6 +96,7 @@ export function ButtonMenu({ onClick, children }) {
         right: "13px",
         fontSize: "20px",
         textTransform: "none",
+        boxShadow: "0 0 3px",
       }}
       variant="outlined"
       color="primary"
@@ -81,7 +107,7 @@ export function ButtonMenu({ onClick, children }) {
   );
 }
 
-export function ButtonClearCart({ disabled, onClick, children }) {
+export function ButtonRestaurantClearCart({ disabled, onClick, children }) {
   return (
     <Button
       sx={{
@@ -89,6 +115,7 @@ export function ButtonClearCart({ disabled, onClick, children }) {
         width: "300px",
         fontSize: "20px",
         textTransform: "none",
+        boxShadow: "0 0 5px",
       }}
       variant="outlined"
       color="error"
@@ -99,19 +126,27 @@ export function ButtonClearCart({ disabled, onClick, children }) {
     </Button>
   );
 }
-export function ButtonFooter({ children }) {
+
+export function ButtonCartClearCart({ disabled, onClick, children }) {
   return (
     <Button
       sx={{
         height: "60px",
-        width: "200px",
+        width: "300px",
+        position: "absolute",
+        bottom: "0",
+        right: "320px",
         fontSize: "20px",
         textTransform: "none",
+        borderRadius: "10px",
+        boxShadow: "0 0 5px",
       }}
-      variant="text"
-      color="secondary"
+      variant="outlined"
+      color="error"
+      disabled={disabled}
+      onClick={onClick}
     >
-      {children}
+      <b> {children}</b>
     </Button>
   );
 }
@@ -128,6 +163,7 @@ export function ButtonSubmitOrder({ disabled, onClick, children }) {
         fontSize: "20px",
         textTransform: "none",
         borderRadius: "10px",
+        boxShadow: "0 0 5px",
       }}
       variant="outlined"
       color="primary"
@@ -153,7 +189,7 @@ export function ButtonArrowUp({ onClick }) {
         minWidth: "30px",
       }}
       variant="outlined"
-      color="primary"
+      color="inputs"
       onClick={onClick}
     >
       <b>▲</b>
@@ -174,7 +210,7 @@ export function ButtonArrowDown({ onClick }) {
         minWidth: "30px",
       }}
       variant="outlined"
-      color="primary"
+      color="inputs"
       onClick={onClick}
     >
       <b>▼</b>
@@ -188,9 +224,8 @@ export function InputPersonalInfo({ toInput, value, onChange, disabled }) {
       sx={{
         width: "600px",
       }}
-      inputProps={{style:{color:"#00bfa5"}}}
       variant="outlined"
-      color="primary"
+      color="inputs"
       label={Capitalize(toInput) + ":"}
       placeholder={`Enter your ${toInput}`}
       value={value}
@@ -212,12 +247,11 @@ export function InputCartQuantity({ value, onChange }) {
   return (
     <QuantityInput
       type="number"
-      color="primary"
+      color="inputs"
       value={value}
       onChange={onChange}
       inputProps={{
         style: {
-          color: "#00bfa5",
           fontSize: 30,
           boxSizing: "border-box",
           width: "250px",
