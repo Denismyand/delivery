@@ -250,6 +250,7 @@ export function InputCartQuantity({ value, onChange }) {
       color="inputs"
       value={value}
       onChange={onChange}
+      onFocus={(e) => e.target.select()}
       inputProps={{
         style: {
           fontSize: 30,

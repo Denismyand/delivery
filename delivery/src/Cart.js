@@ -46,6 +46,7 @@ export default function Cart({
         customer_phone: custPhone,
         customer_address: custAddress,
         ordered_items: cart,
+        order_total: cartTotal(),
       },
     ]);
     setCustName("");
@@ -72,7 +73,13 @@ export default function Cart({
   function handleChangeQuantity(dish, e) {
     let changed = cart.map((cartItem) => {
       if (cartItem.id === dish.id) {
-        return { ...cartItem, cartQuantity: e.target.value };
+        if (e.target.value >= 13) {
+          return { ...cartItem, cartQuantity: 13 };
+        } else if (e.target.value <= 1) {
+          return { ...cartItem, cartQuantity: 1 };
+        } else {
+          return { ...cartItem, cartQuantity: e.target.value };
+        }
       } else return cartItem;
     });
     setCart(changed);
@@ -135,11 +142,18 @@ export default function Cart({
               />
             </div>
           ) : null}
-
           <div className="CartTotal">
             <p>Total price: {cartTotal()}</p>
           </div>
-          <ButtonCartClearCart>Clear cart</ButtonCartClearCart>
+          <ButtonCartClearCart
+            disabled={cart.length < 1}
+            onClick={() => {
+              setCart([]);
+              createNotification("cleared");
+            }}
+          >
+            Clear cart
+          </ButtonCartClearCart>
           <ButtonSubmitOrder
             disabled={
               cart.length < 1 ||

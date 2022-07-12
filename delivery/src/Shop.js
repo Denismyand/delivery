@@ -6,7 +6,13 @@ import {
   ButtonRestaurantClearCart,
 } from "./MuiCustomized.js";
 
-export default function Shop({ menu, cart, handleAddToCart, setCart }) {
+export default function Shop({
+  menu,
+  cart,
+  handleAddToCart,
+  setCart,
+  createNotification,
+}) {
   let mcMenu = menu.filter((dish) => dish.restaurant === "McDonny");
   let cfkMenu = menu.filter((dish) => dish.restaurant === "CFK");
   let johnsMenu = menu.filter((dish) => dish.restaurant === "Uncle John's");
@@ -27,6 +33,7 @@ export default function Shop({ menu, cart, handleAddToCart, setCart }) {
         sonimodMenu={sonimodMenu}
         cart={cart}
         setCart={setCart}
+        createNotification={createNotification}
       />
       <Menu restaurant={restaurant} handleAddToCart={handleAddToCart} />
     </div>
@@ -41,6 +48,7 @@ function Restaurants({
   sonimodMenu,
   cart,
   setCart,
+  createNotification,
 }) {
   return (
     <div className="RestaurantList">
@@ -72,7 +80,10 @@ function Restaurants({
         </ButtonRestaurant>
         <ButtonRestaurantClearCart
           disabled={cart.length === 0}
-          onClick={() => setCart([])}
+          onClick={() => {
+            setCart([]);
+            createNotification("cleared");
+          }}
         >
           Clear cart
         </ButtonRestaurantClearCart>
@@ -95,7 +106,11 @@ function Menu({ restaurant, handleAddToCart }) {
               height="100%"
             />
             <div>
-              <b className="DishName">{dish.product}</b>
+              <span className="DishInfo">
+                <b> {dish.product}</b>
+                <br />
+                {dish.cost + "₴"}
+              </span>
               <ButtonMenu onClick={() => handleAddToCart(dish)}>
                 Add to cart
               </ButtonMenu>

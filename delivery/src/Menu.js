@@ -33,7 +33,7 @@ export const dishes = [
     restaurant: "McDonny",
     product: "Cheeseburger",
     image: cheeseburger,
-    cost: 123,
+    cost: 126,
     cartQuantity: 0,
   },
   {
@@ -41,7 +41,7 @@ export const dishes = [
     restaurant: "McDonny",
     product: "SadMeal",
     image: sadmeal,
-    cost: 123,
+    cost: 132,
     cartQuantity: 0,
   },
   {
@@ -49,7 +49,7 @@ export const dishes = [
     restaurant: "McDonny",
     product: "McFurry",
     image: furry,
-    cost: 123,
+    cost: 210,
     cartQuantity: 0,
   },
   {
@@ -57,7 +57,7 @@ export const dishes = [
     restaurant: "McDonny",
     product: "McMafia",
     image: mafia,
-    cost: 123,
+    cost: 155,
     cartQuantity: 0,
   },
   {
@@ -65,7 +65,7 @@ export const dishes = [
     restaurant: "CFK",
     product: "Wings",
     image: wings,
-    cost: 123,
+    cost: 213,
     cartQuantity: 0,
   },
   {
@@ -73,7 +73,7 @@ export const dishes = [
     restaurant: "CFK",
     product: "Strips",
     image: strips,
-    cost: 123,
+    cost: 203,
     cartQuantity: 0,
   },
   {
@@ -81,7 +81,7 @@ export const dishes = [
     restaurant: "CFK",
     product: "Bucket",
     image: bucket,
-    cost: 123,
+    cost: 534,
     cartQuantity: 0,
   },
   {
@@ -89,7 +89,7 @@ export const dishes = [
     restaurant: "CFK",
     product: "Legs",
     image: legs,
-    cost: 123,
+    cost: 128,
     cartQuantity: 0,
   },
   {
@@ -97,7 +97,7 @@ export const dishes = [
     restaurant: "CFK",
     product: "Chickenburger",
     image: chicken,
-    cost: 123,
+    cost: 215,
     cartQuantity: 0,
   },
   {
@@ -105,7 +105,7 @@ export const dishes = [
     restaurant: "Uncle John's",
     product: "Mozarella Sticks",
     image: sticks,
-    cost: 123,
+    cost: 105,
     cartQuantity: 0,
   },
   {
@@ -113,7 +113,7 @@ export const dishes = [
     restaurant: "Uncle John's",
     product: "Uncledias",
     image: dias,
-    cost: 123,
+    cost: 319,
     cartQuantity: 0,
   },
   {
@@ -121,7 +121,7 @@ export const dishes = [
     restaurant: "Uncle John's",
     product: "Honey Mustard",
     image: mustard,
-    cost: 123,
+    cost: 30,
     cartQuantity: 0,
   },
   {
@@ -129,7 +129,7 @@ export const dishes = [
     restaurant: "Uncle John's",
     product: "BBQ Chicken Pizza",
     image: bbq,
-    cost: 123,
+    cost: 239,
     cartQuantity: 0,
   },
   {
@@ -137,7 +137,7 @@ export const dishes = [
     restaurant: "Uncle John's",
     product: "Margherita pizza",
     image: margherita,
-    cost: 123,
+    cost: 192,
     cartQuantity: 0,
   },
   {
@@ -145,7 +145,7 @@ export const dishes = [
     restaurant: "Sonimod Pizza",
     product: "Carbonara",
     image: carbonara,
-    cost: 123,
+    cost: 329,
     cartQuantity: 0,
   },
   {
@@ -153,7 +153,7 @@ export const dishes = [
     restaurant: "Sonimod Pizza",
     product: "Royal Cheeseburger",
     image: royal,
-    cost: 123,
+    cost: 239,
     cartQuantity: 0,
   },
   {
@@ -161,7 +161,7 @@ export const dishes = [
     restaurant: "Sonimod Pizza",
     product: "Toscana",
     image: toscana,
-    cost: 123,
+    cost: 439,
     cartQuantity: 0,
   },
   {
@@ -169,7 +169,7 @@ export const dishes = [
     restaurant: "Sonimod Pizza",
     product: "5 Cheese",
     image: cheese,
-    cost: 123,
+    cost: 593,
     cartQuantity: 0,
   },
   {
@@ -177,7 +177,7 @@ export const dishes = [
     restaurant: "Sonimod Pizza",
     product: "Munich DeLUX",
     image: munich,
-    cost: 123,
+    cost: 293,
     cartQuantity: 0,
   },
 ];

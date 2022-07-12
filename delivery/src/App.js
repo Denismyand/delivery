@@ -13,18 +13,10 @@ import {
   NotificationManager,
 } from "react-notifications";
 
-function createNotification(type, dish, cartItem) {
-  function ifInCart(cartItem) {
-    if (cartItem) {
-      return `Quantity in cart: ${cartItem.cartQuantity + 1}`;
-    } else return "Quantity in cart: 1";
-  }
+function createNotification(type, dish) {
   switch (type) {
     case "added":
-      NotificationManager.success(
-        `${ifInCart(cartItem)}`,
-        `Added ${dish.product} to cart`
-      );
+      NotificationManager.success(``, `Added ${dish.product} to cart`);
       break;
 
     case "removed":
@@ -41,6 +33,9 @@ function createNotification(type, dish, cartItem) {
     case "ordered":
       NotificationManager.success(``, `Order Placed!`);
       break;
+
+    case "cleared":
+      NotificationManager.success(``, "Cart cleared");
   }
 }
 
@@ -63,17 +58,24 @@ export default function App() {
     if (foundInCart) {
       let nextCart = cart.map((food) => {
         if (food.id === foundInCart.id) {
-          return {
-            ...foundInCart,
-            cartQuantity: Number(foundInCart.cartQuantity) + 1,
-          };
+          if (foundInCart.cartQuantity >= 13) {
+            return {
+              ...foundInCart,
+              cartQuantity: Number(13),
+            };
+          } else {
+            return {
+              ...foundInCart,
+              cartQuantity: Number(foundInCart.cartQuantity) + 1,
+            };
+          }
         } else return food;
       });
       setCart(nextCart);
     } else {
       setCart([...cart, { ...dish, cartQuantity: 1 }]);
+      createNotification("added", dish, foundInCart);
     }
-    createNotification("added", dish, foundInCart);
   }
 
   function handleDecreaseQuantity(dish) {
@@ -110,6 +112,7 @@ export default function App() {
               setCart={setCart}
               menu={menu}
               handleAddToCart={handleAddToCart}
+              createNotification={createNotification}
             />
           }
         />
@@ -145,4 +148,3 @@ function Footer() {
     </div>
   );
 }
-
