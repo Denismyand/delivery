@@ -10,6 +10,7 @@ import {
   InputPersonalInfo,
   InputCartQuantity,
   ButtonCartClearCart,
+  ButtonDeleteFromCart,
 } from "./MuiCustomized.js";
 
 export default function Cart({
@@ -128,9 +129,11 @@ export default function Cart({
         <div className="Cart">
           <CartItems
             cart={cart}
+            setCart={setCart}
             handleChangeQuantity={handleChangeQuantity}
             handleAddToCart={handleAddToCart}
             handleDecreaseQuantity={handleDecreaseQuantity}
+            createNotification={createNotification}
           />
         </div>
         <div className="CartTotalSection">
@@ -179,9 +182,11 @@ export default function Cart({
 
 function CartItems({
   cart,
+  setCart,
   handleChangeQuantity,
   handleAddToCart,
   handleDecreaseQuantity,
+  createNotification,
 }) {
   return cart.length > 0 ? (
     cart.map((dish) => {
@@ -215,6 +220,12 @@ function CartItems({
                     onClick={() => handleDecreaseQuantity(dish)}
                   ></ButtonArrowDown>
                 </Stack>
+                <ButtonDeleteFromCart
+                  onClick={() => {
+                    setCart(cart.filter((cartItem) => cartItem.id !== dish.id));
+                    createNotification("removed", dish);
+                  }}
+                />
               </div>
             </div>
           </div>

@@ -1,5 +1,6 @@
 import { createTheme, styled } from "@mui/material/styles";
 import { Button, TextField } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 function Capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
@@ -196,6 +197,7 @@ export function ButtonArrowUp({ onClick }) {
     </Button>
   );
 }
+
 export function ButtonArrowDown({ onClick }) {
   return (
     <Button
@@ -214,6 +216,29 @@ export function ButtonArrowDown({ onClick }) {
       onClick={onClick}
     >
       <b>▼</b>
+    </Button>
+  );
+}
+
+export function ButtonDeleteFromCart({ onClick }) {
+  return (
+    <Button
+      sx={{
+        height: "30px",
+        width: "30px",
+        fontSize: "20px",
+        textTransform: "none",
+        borderRadius: "0px",
+        padding: "0px",
+        minWidth: "30px",
+        position: "absolute",
+        top: "10px",
+        right: "10px",
+      }}
+      color="error"
+      onClick={onClick}
+    >
+      <DeleteIcon sx={{ height: "30px", width: "30px" }} />
     </Button>
   );
 }
