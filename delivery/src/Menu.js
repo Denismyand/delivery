@@ -1,6 +1,6 @@
 import tasty from "./pics/McDonny/tasty.png";
 import cheeseburger from "./pics/McDonny/cheeseburger.jpg";
-import sadmeal from "./pics/McDonny/sadmeal.jpeg";
+import sadmeal from "./pics/McDonny/sadmeal.jpg";
 import furry from "./pics/McDonny/furry.png";
 import mafia from "./pics/McDonny/mafia.jpg";
 import wings from "./pics/CFK/Wings.jpg";

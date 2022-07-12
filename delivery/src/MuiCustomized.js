@@ -8,9 +8,9 @@ function Capitalize(str) {
 export const theme = createTheme({
   palette: {
     primary: {
-      main: "#607d8b",
-      light: "#90a4ae",
-      dark: "#455a64",
+      main: "#00bfa5",
+      light: "#1b5e20",
+      dark: "#1b5e20",
       contrastText: "#000000",
     },
     secondary: {
@@ -19,6 +19,7 @@ export const theme = createTheme({
       dark: "#000000",
       contrastText: "#FFFFFF",
     },
+    error: { main: "#d32f2f", contrastText: "#d32f2f" },
   },
   typography: { fontSize: 18 },
 });
@@ -49,7 +50,7 @@ export function ButtonRestaurant({ disabled, onClick, children }) {
         fontSize: "20px",
         textTransform: "none",
       }}
-      variant="contained"
+      variant="outlined"
       color="primary"
       disabled={disabled}
       onClick={onClick}
@@ -71,7 +72,7 @@ export function ButtonMenu({ onClick, children }) {
         fontSize: "20px",
         textTransform: "none",
       }}
-      variant="contained"
+      variant="outlined"
       color="primary"
       onClick={onClick}
     >
@@ -89,7 +90,7 @@ export function ButtonClearCart({ disabled, onClick, children }) {
         fontSize: "20px",
         textTransform: "none",
       }}
-      variant="contained"
+      variant="outlined"
       color="error"
       disabled={disabled}
       onClick={onClick}
@@ -107,7 +108,7 @@ export function ButtonFooter({ children }) {
         fontSize: "20px",
         textTransform: "none",
       }}
-      variant="outlined"
+      variant="text"
       color="secondary"
     >
       {children}
@@ -128,7 +129,7 @@ export function ButtonSubmitOrder({ disabled, onClick, children }) {
         textTransform: "none",
         borderRadius: "10px",
       }}
-      variant="contained"
+      variant="outlined"
       color="primary"
       disabled={disabled}
       onClick={onClick}
@@ -151,7 +152,7 @@ export function ButtonArrowUp({ onClick }) {
         padding: "0px",
         minWidth: "30px",
       }}
-      variant="contained"
+      variant="outlined"
       color="primary"
       onClick={onClick}
     >
@@ -172,7 +173,7 @@ export function ButtonArrowDown({ onClick }) {
         padding: "0px",
         minWidth: "30px",
       }}
-      variant="contained"
+      variant="outlined"
       color="primary"
       onClick={onClick}
     >
@@ -184,7 +185,10 @@ export function ButtonArrowDown({ onClick }) {
 export function InputPersonalInfo({ toInput, value, onChange, disabled }) {
   return (
     <TextField
-      sx={{ width: "600px" }}
+      sx={{
+        width: "600px",
+      }}
+      inputProps={{style:{color:"#00bfa5"}}}
       variant="outlined"
       color="primary"
       label={Capitalize(toInput) + ":"}
@@ -213,6 +217,7 @@ export function InputCartQuantity({ value, onChange }) {
       onChange={onChange}
       inputProps={{
         style: {
+          color: "#00bfa5",
           fontSize: 30,
           boxSizing: "border-box",
           width: "250px",
